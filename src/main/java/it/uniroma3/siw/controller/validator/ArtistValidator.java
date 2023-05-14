@@ -7,8 +7,8 @@ import org.springframework.validation.Validator;
 public class ArtistValidator implements Validator {
 
     @Override
-    public boolean supports(Class<?> classname) {
-        return Artist.class.equals(classname);
+    public boolean supports(Class<?> clazz) {
+        return Artist.class.equals(clazz);
     }
 
     @Override
