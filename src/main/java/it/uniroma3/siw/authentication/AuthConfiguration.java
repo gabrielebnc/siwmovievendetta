@@ -34,22 +34,21 @@ public class AuthConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> {
-                            try {
-                                requests
-                                        .requestMatchers(HttpMethod.GET, "/login", "/register", "/css/**", "/images/**").permitAll()
-                                        .requestMatchers(HttpMethod.POST, "/login", "/register", "registers").permitAll()
-                                        // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
-                                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
-                                        .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
-                                        .requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
-                                        .requestMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
-
-                                        .anyRequest().authenticated()
-                                        .and().exceptionHandling(handling -> handling.accessDeniedPage("/error"));
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
+                    try {
+                        requests
+                                .requestMatchers(HttpMethod.GET, "/login", "/index", "/", "/register", "/css/**", "/images/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                                // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
+                                .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
+                                .requestMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
+                                .anyRequest().authenticated()
+                                .and().exceptionHandling(handling -> handling.accessDeniedPage("/error"));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
                 )
                 .formLogin((form) -> form
@@ -59,7 +58,7 @@ public class AuthConfiguration {
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/")
                         .permitAll()
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")

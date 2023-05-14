@@ -30,13 +30,13 @@ public class MovieController {
     @Autowired
     private MovieValidator movieValidator;
     
-    @GetMapping("/formNewMovie")
+    @GetMapping("/admin/formNewMovie")
     public String newMovie(Model model){
         model.addAttribute("movie",new Movie());
-        return "formNewMovie.html";
+        return "/admin/formNewMovie.html";
     }
 
-    @PostMapping("/uploadMovie")
+    @PostMapping("/admin/uploadMovie")
     public String newMovie(Model model, @Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, @RequestParam("file") MultipartFile[] images) throws IOException {
         this.movieValidator.validate(movie,bindingResult);
         if(!bindingResult.hasErrors()){
