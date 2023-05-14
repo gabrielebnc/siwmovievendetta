@@ -1,8 +1,8 @@
-package it.uniroma3.siw.siwmovievendetta.controller;
+package it.uniroma3.siw.controller;
 
-import it.uniroma3.siw.siwmovievendetta.model.Credentials;
-import it.uniroma3.siw.siwmovievendetta.model.User;
-import it.uniroma3.siw.siwmovievendetta.service.CredentialsService;
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.CredentialsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

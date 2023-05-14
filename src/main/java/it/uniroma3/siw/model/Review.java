@@ -1,4 +1,4 @@
-package it.uniroma3.siw.siwmovievendetta.model;
+package it.uniroma3.siw.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

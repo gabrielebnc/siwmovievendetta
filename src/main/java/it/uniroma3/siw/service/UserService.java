@@ -1,7 +1,7 @@
-package it.uniroma3.siw.siwmovievendetta.service;
+package it.uniroma3.siw.service;
 
-import it.uniroma3.siw.siwmovievendetta.model.User;
-import it.uniroma3.siw.siwmovievendetta.repository.UserRepository;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

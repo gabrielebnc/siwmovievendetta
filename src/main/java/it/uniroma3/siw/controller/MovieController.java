@@ -1,10 +1,10 @@
-package it.uniroma3.siw.siwmovievendetta.controller;
+package it.uniroma3.siw.controller;
 
-import it.uniroma3.siw.siwmovievendetta.controller.validator.MovieValidator;
-import it.uniroma3.siw.siwmovievendetta.model.Image;
-import it.uniroma3.siw.siwmovievendetta.model.Movie;
-import it.uniroma3.siw.siwmovievendetta.repository.PictureRepository;
-import it.uniroma3.siw.siwmovievendetta.repository.MovieRepository;
+import it.uniroma3.siw.controller.validator.MovieValidator;
+import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.repository.PictureRepository;
+import it.uniroma3.siw.repository.MovieRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

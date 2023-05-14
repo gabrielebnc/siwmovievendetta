@@ -1,7 +1,7 @@
-package it.uniroma3.siw.siwmovievendetta.controller.validator;
+package it.uniroma3.siw.controller.validator;
 
-import it.uniroma3.siw.siwmovievendetta.model.Movie;
-import it.uniroma3.siw.siwmovievendetta.repository.MovieRepository;
+import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

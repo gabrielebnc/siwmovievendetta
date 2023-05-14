@@ -1,7 +1,7 @@
-package it.uniroma3.siw.siwmovievendetta.service;
+package it.uniroma3.siw.service;
 
-import it.uniroma3.siw.siwmovievendetta.model.Credentials;
-import it.uniroma3.siw.siwmovievendetta.repository.CredentialsRepository;
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.repository.CredentialsRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
