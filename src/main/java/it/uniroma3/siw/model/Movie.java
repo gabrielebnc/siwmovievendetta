@@ -1,21 +1,32 @@
-package it.uniroma3.siw.model;
+package it.uniroma3.siw.siwmovievendetta.model;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
-import java.util.Objects;;
 
 @Entity
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank
     private String title;
+
+    @Min(1900)
+    @Max(2023)
     private Integer year;
-    private String urlImage;
-    @OneToMany
-    private List<News> news;
+
+    @ManyToMany
+    List<Image> images;
+
     @ManyToOne
-    private Artist regist;
-    @ManyToMany(mappedBy = "movieActedIn")
+    private Artist director;
+
+    @ManyToMany(mappedBy = "actedMovies")
     private List<Artist> actors;
 
     public Long getId() {
@@ -42,47 +53,27 @@ public class Movie {
         this.year = year;
     }
 
-    public String getUrlImage() {
-        return urlImage;
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public Artist getDirector() {
+        return director;
+    }
+
+    public void setDirector(Artist director) {
+        this.director = director;
     }
 
     public List<Artist> getActors() {
-        return this.actors;
+        return actors;
     }
 
     public void setActors(List<Artist> actors) {
         this.actors = actors;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
-    }
-
-    public List<News> getNews() {
-        return news;
-    }
-
-    public void setNews(List<News> news) {
-        this.news = news;
-    }
-
-    public Artist getRegist() {
-        return regist;
-    }
-
-    public void setRegist(Artist regist) {
-        this.regist = regist;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Movie movie)) return false;
-        return Objects.equals(getTitle(), movie.getTitle()) && Objects.equals(getYear(), movie.getYear());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTitle(), getYear());
     }
 }

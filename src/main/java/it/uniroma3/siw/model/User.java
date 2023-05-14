@@ -3,11 +3,11 @@ package it.uniroma3.siw.siwmovievendetta.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class Artist {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,19 +16,11 @@ public class Artist {
     private String name;
     @NotBlank
     private String surname;
-
     @NotBlank
-    private LocalDate birthDate;
-    private LocalDate deathDate;
+    private String email;
 
     @OneToOne
     private Image profilePicture;
-
-    @OneToMany(mappedBy = "director")
-    private List<Movie> directedMovies;
-
-    @ManyToMany
-    private List<Movie> actedMovies;
 
     public Long getId() {
         return id;
@@ -54,20 +46,12 @@ public class Artist {
         this.surname = surname;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public String getEmail() {
+        return email;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public LocalDate getDeathDate() {
-        return deathDate;
-    }
-
-    public void setDeathDate(LocalDate deathDate) {
-        this.deathDate = deathDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Image getProfilePicture() {
@@ -78,19 +62,16 @@ public class Artist {
         this.profilePicture = profilePicture;
     }
 
-    public List<Movie> getDirectedMovies() {
-        return directedMovies;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(profilePicture, user.profilePicture);
     }
 
-    public void setDirectedMovies(List<Movie> directedMovies) {
-        this.directedMovies = directedMovies;
-    }
-
-    public List<Movie> getActedMovies() {
-        return actedMovies;
-    }
-
-    public void setActedMovies(List<Movie> actedMovies) {
-        this.actedMovies = actedMovies;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, email, profilePicture);
     }
 }

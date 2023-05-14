@@ -1,12 +1,8 @@
-package it.uniroma3.siw.repository;
+package it.uniroma3.siw.siwmovievendetta.repository;
 
-import java.util.List;
-
+import it.uniroma3.siw.siwmovievendetta.model.Artist;
 import org.springframework.data.repository.CrudRepository;
-import it.uniroma3.siw.model.Artist;
-import it.uniroma3.siw.model.Movie;
 
-public interface ArtistRepository extends CrudRepository<Artist, Long> {
-    public boolean existsByNameAndSurnameAndNationality(String name, String surname, String nationality);
-    public List<Artist> getArtistByMovieActedInNotContains(Movie movie);
+public interface ArtistRepository extends CrudRepository<Artist,Long> {
+
 }
