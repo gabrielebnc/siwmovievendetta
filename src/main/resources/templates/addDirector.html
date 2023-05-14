@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/base.css">
+    <title>Add Director</title>
+</head>
+<body>
+    <h1>Add Director</h1>
+    <h3 th:text="'Film:' + ${movie.title}"></h3>
+    <ul>
+        <li th:each="artist : ${artists}">
+            <a th:text="${artist.name} + ' ' +  ${artist.surname}" th:href="@{'/setDirectorToMovie' + '/' + ${artist.id} + '/' + ${movie.id}}">mario rossi</a>
+        </li>
+    </ul>
+</body>
+</html>

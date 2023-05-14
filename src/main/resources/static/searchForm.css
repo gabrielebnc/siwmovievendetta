@@ -1,0 +1,24 @@
+button{
+    margin-top: 4px;
+    width:100px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    background-color: rgb(201, 57, 86);
+    box-shadow: -1px 1px 4px rgb(103, 102, 102);
+    transition: 0.2s ease-in-out;
+    margin: 2em;
+}
+
+button:hover{
+    box-shadow: -2px 2px 4px 1px rgb(56, 56, 56);
+}
+
+input{
+    margin-top: 1em;
+    border-radius: 2px;
+    border: none;
+    height: 1.5em;
+}

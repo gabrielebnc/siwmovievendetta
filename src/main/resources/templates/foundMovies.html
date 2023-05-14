@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Film</title>
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+<h1>Found films:</h1>
+<div th:if="${movies.isEmpty()}">No films found</div>
+<ul th:if="${!movies.isEmpty()}">
+  <li th:each="movie : ${movies}">
+    <a href="movie.html" th:href="@{'/movies' + '/' + ${movie.id}}"
+       th:text="${movie.title} + ' (' + ${movie.year}+')'">Up! (2000)</a>
+  </li>
+</ul>
+</body>
+
+</html>
