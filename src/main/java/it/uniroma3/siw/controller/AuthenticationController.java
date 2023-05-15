@@ -29,7 +29,7 @@ public class AuthenticationController {
             return "index.html";
         }
         else {
-            UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
             Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
             if(credentials.getRole().equals(Credentials.ADMIN_ROLE)){
                 return "admin/indexAdmin.html";
@@ -61,7 +61,7 @@ public class AuthenticationController {
             return "index.html";
         }
         else {
-            UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
             Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
             if(credentials.getRole().equals(Credentials.ADMIN_ROLE)){
                 return "admin/indexAdmin.html";

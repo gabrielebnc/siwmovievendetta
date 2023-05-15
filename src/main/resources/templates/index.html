@@ -9,6 +9,11 @@
 <body>
     <h1>SiwMovie - La Vendetta</h1>
     index users
+    <p th:text="'Hi ' + ${usertype} + ' user'"></p>
+    <span th:switch="${usertype}">
+        <a th:case="'default' " href="/logout">logout</a>
+        <a th:case="'anonymous'" href="/login">login</a>
+    </span>
 
 </body>
 </html>
