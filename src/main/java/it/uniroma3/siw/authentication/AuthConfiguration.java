@@ -70,7 +70,7 @@ public class AuthConfiguration {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.jdbcAuthentication()
+                auth.jdbcAuthentication()
                 .dataSource(datasource)
                 .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?")
                 .authoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username=?");

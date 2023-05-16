@@ -1,8 +1,6 @@
 package it.uniroma3.siw.controller;
 
-import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
-import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.service.CredentialsService;
@@ -95,5 +93,6 @@ public class GlobalController {
         }
         return "formRegister.html";
     }
+
 
 }
