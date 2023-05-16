@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/indexAdmin.css">
 </head>
 <body>
-    index admin
-    <a href="/logout">Logout</a>
+    <nav>
+        <h1>SIWMOVIE</h1>
+        <h2>ADMIN PANEL</h2>
+        <a href="/logout">LOG OUT</a>
+    </nav>
+
+    
+    <div class="main-container">
+        <h1>Operations</h1>
+        <div class="operations">
+            <a href="/admin/formNewMovie">New Movie</a>
+            <a href="/admim/formNewArtist">New Artist</a>
+            <a href="/admin/manageMovies">Manage Movies</a>
+        </div>
+    </div>
 </body>
 </html>
