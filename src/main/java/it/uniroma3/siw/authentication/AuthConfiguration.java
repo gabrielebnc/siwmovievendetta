@@ -41,8 +41,8 @@ public class AuthConfiguration {
                                 // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
                                 .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
-                                .requestMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
+                                .requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority(DEFAULT_ROLE, ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority(DEFAULT_ROLE, ADMIN_ROLE)
                                 .anyRequest().authenticated()
                                 .and().exceptionHandling(handling -> handling.accessDeniedPage("/error"));
                     } catch (Exception e) {
