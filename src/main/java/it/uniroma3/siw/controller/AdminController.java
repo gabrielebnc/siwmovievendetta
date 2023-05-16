@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
+import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.repository.PictureRepository;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class MovieController {
+public class AdminController {
 
     @Autowired
     private PictureRepository pictureRepository;
@@ -55,7 +56,15 @@ public class MovieController {
             model.addAttribute("pictures",movieImgs);
             return "movie.html";
         } else {
-            return "formNewMovie.html";
+            return "/admin/formNewMovie.html";
         }
     }
+
+    @GetMapping("/admin/formNewArtist")
+    public String newArtist(Model model){
+        model.addAttribute("artist",new Artist());
+        return "formNewArtist.html";
+    }
+
+    /*TODO ADD POST NEW ARTIST AND MOVIE-ARTISTS LINKING METHODS*/
 }

@@ -1,7 +1,10 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class AuthenticationController {
+public class GlobalController {
     @Autowired
     private CredentialsService credentialsService;
-    
+
+    @Autowired
+    ArtistRepository artistRepository;
+
+    /* TODO REFACTOR /INDEX AND / ROUTES */
     @GetMapping("/index")
     public String index2(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +59,7 @@ public class AuthenticationController {
         return "formLogin.html";
     }
 
-
+/* TODO REFACTOR / AND /INDEX ROUTES */
     @GetMapping("/")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -88,4 +95,5 @@ public class AuthenticationController {
         }
         return "formRegister.html";
     }
+
 }
