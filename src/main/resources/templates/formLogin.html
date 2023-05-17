@@ -2,41 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Title</title>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <!--
-    <header>
-        <div th:if="${#request.userPrincipal}">
-            <span th:text="${#request.userPrincipal.principal.username}"></span>
-            <a href="/logout">Logout</a>
-        </div>
-        <div th:unless="${#request.userPrincipal}">
-            <a href="/login">Login</a>
-        </div>
-    </header>
-    -->
-    <h1>Login</h1>
-    <form th:action="@{/login}" method="POST">
-        <div>
-            <span>Username:</span>
-            <span><input name="username" type="text" required /></span>
-        </div>
-        <div>
-            <span>Password:</span>
-            <span><input name="password" type="password" required /></span>
-        </div>
-        <div>
-            <span th:if="${param.error != null}">Username o password errati</span>
-        </div>
-        <div>
-            <span><button type="submit">Login</button></span>
-        </div>
-    </form>
-    <div>
-        <a th:href="@{/register}" th:method="get" th:text="Registrati">Registrati</a>
-    </div>
 
+
+    <div class="login">
+        <h2>Sign in to your account</h2>
+        <form th:action="@{/login}" method="POST">
+            <div>
+                <input name="username" type="text" placeholder="Username" required />
+            </div>
+            <div>
+                <input name="password" type="password" placeholder="Password" required />
+            </div>
+            <div>
+                <span th:if="${param.error != null}">Wrong username/password</span>
+            </div>
+            <div>
+                <button type="submit" class="btns">SIGN IN</button>
+            </div>
+        </form>
+        <div>
+            <a th:href="@{/register}" th:method="get" id="register">Don't have an account? Register now</a>
+        </div>
+    </div>
 </body>
 </html>

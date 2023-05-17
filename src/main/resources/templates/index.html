@@ -5,16 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/index.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>SiwMovie - La Vendetta</h1>
-    index users
-    <p th:text="'Hi ' + ${usertype} + ' user'"></p>
-    <span th:switch="${usertype}">
-        <a th:case="'default' " href="/logout">logout</a>
-        <a th:case="'anonymous'" href="/login">login</a>
-    </span>
+    <nav>
+        <h1>SIWMOVIE</h1>
+        <h2>Home page</h2>
+        <a th:if="${userDetails}" href="/logout">LOG IN</a>
+        <a th:unless="${userDetails}" href="/login">LOG OUT</a>
+    </nav>
+    <div class="movies">
+        <div class="card" th:each="movie : ${movies}">
+            <div class="card_content">
+                <img src="/images/cinemabw.jpg" alt="film picture">
+                <div class="card-text">
+                    <div class="card-p" th:text="${movie.title}">Avatar</div>
+                    <div class="card-p" th:text="${movie.year}">2012</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+        
 
 </body>
 </html>

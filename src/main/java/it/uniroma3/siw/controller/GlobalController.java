@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
+import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +24,45 @@ public class GlobalController {
     private CredentialsService credentialsService;
 
     @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
     ArtistRepository artistRepository;
 
-    /* TODO REFACTOR /INDEX AND / ROUTES */
+    @GetMapping("/")
+    public String index(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = null;
+        Credentials credentials = null;
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            userDetails = (UserDetails)authentication.getPrincipal();
+            credentials = credentialsService.getCredentials(userDetails.getUsername());
+        }
+        if(credentials != null && credentials.getRole().equals(Credentials.ADMIN_ROLE)) return "admin/indexAdmin.html";
+
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("movies", this.movieRepository.findAll());
+        return "index.html";
+    }
     @GetMapping("/index")
     public String index2(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("usertype", "anonymous");
-            return "index.html";
+        UserDetails userDetails = null;
+        Credentials credentials = null;
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            userDetails = (UserDetails)authentication.getPrincipal();
+            credentials = credentialsService.getCredentials(userDetails.getUsername());
         }
-        else {
-            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-            Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-            if(credentials.getRole().equals(Credentials.ADMIN_ROLE)){
-                return "admin/indexAdmin.html";
-            } else {
-                model.addAttribute("usertype", "default");
-                return "index.html";
-            }
-        }
+        if(credentials != null && credentials.getRole().equals(Credentials.ADMIN_ROLE)) return "admin/indexAdmin.html";
+
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("movies", this.movieRepository.findAll());
+        return "index.html";
+    }
+
+    @GetMapping(value = "/login")
+    public String showLoginForm (Model model) {
+        return "formLogin.html";
     }
 
     @GetMapping(value = "/register")
@@ -52,39 +72,12 @@ public class GlobalController {
         return "formRegister.html";
     }
 
-    @GetMapping(value = "/login")
-    public String showLoginForm (Model model) {
-        return "formLogin.html";
-    }
-
-/* TODO REFACTOR / AND /INDEX ROUTES */
-    @GetMapping("/")
-    public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("usertype", "anonymous");
-            return "index.html";
-        }
-        else {
-            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-            Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-            if(credentials.getRole().equals(Credentials.ADMIN_ROLE)){
-                return "admin/indexAdmin.html";
-            } else {
-                model.addAttribute("usertype", "default");
-                return "index.html";
-            }
-        }
-    }
-
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user,
                                BindingResult userBindingResult, @Valid
                                @ModelAttribute("credentials") Credentials credentials,
                                BindingResult credentialsBindingResult,
                                Model model) {
-
-        // se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
