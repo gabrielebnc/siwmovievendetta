@@ -1,10 +1,10 @@
 :root{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --jet-black: #2A2A2A;
-    --fucsia: #f24bd6;
-    --yellow: #f2e41b;
-    --orange: #f28705;
-    --red: #d94141;
+    --cream: #efe9e7;
+    --lavander: #dae0f2;
+    --purple: #52154e;
+    --bluenavy: #111344;
 }
 
 *{
@@ -14,6 +14,6 @@
 }
 
 body{
-    background-color: var(--orange);
+    background-color: var(--lavander);
 }
 

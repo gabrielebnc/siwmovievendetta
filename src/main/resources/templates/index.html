@@ -13,8 +13,8 @@
     <nav>
         <h1>SIWMOVIE</h1>
         <h2>Home page</h2>
-        <a th:if="${userDetails}" href="/logout">LOG IN</a>
-        <a th:unless="${userDetails}" href="/login">LOG OUT</a>
+        <a th:if="${userDetails}" href="/logout">LOG OUT</a>
+        <a th:unless="${userDetails}" href="/login">SIGN IN</a>
     </nav>
     <div class="movies">
         <div class="card" th:each="movie : ${movies}">

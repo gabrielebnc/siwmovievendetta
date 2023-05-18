@@ -6,10 +6,9 @@
     aspect-ratio: 3/2;
     border-radius: 20px;
     padding: 5px;
-    box-shadow: rgba(36, 21, 54, 0.2) 0 15px 30px -5px;
-    background-image: linear-gradient(144deg,var(--fucsia), var(--yellow));
+    box-shadow: rgba(84, 58, 115, 0.2) 0 15px 30px -5px;
+    background-image: linear-gradient(144deg,var(--purple), var(--bluenavy));
     z-index: 1;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +19,10 @@
     width: 98%;
     height: 93%;
     position: relative;
+}
+
+.card_content *{
+    color: var(--cream)
 }
 
 .card_content img{
@@ -34,7 +37,7 @@
     position: absolute;
     top: 0%;
     left: 00%;
-    background: radial-gradient(rgb(190, 190, 190), rgba(214, 214, 214, 0) 86%);
+    background: radial-gradient(var(--purple), rgba(214, 214, 214, 0) 86%);
     padding: 1rem;
     border-radius: 15px;
 }

@@ -1,9 +1,9 @@
 .main-container{
-    margin: 2rem;
+    margin: 2rem 4rem;
     padding: 2rem;
     text-align: center;
     border: 1px solid var(--jet-black);
-    border-radius: 20px;
+    border-radius: 25px;
 
 }
 
@@ -21,18 +21,19 @@
 
 
 .operations a{
+    color: var(--cream);
     text-decoration: none;
     border: 1px solid var(--jet-black);
     border-radius: 20px;
-    padding: 7px;
+    padding: 13px 7px;
     margin: 5px 0;
     width: 30%;
-    background-color: var(--yellow);
+    background-color: var(--purple);
     font-weight: 700;
 }
 
 .operations a:visited{
-    color:inherit;
+    color: var(--cream);
 }
 
 .operations a:hover{
