@@ -10,7 +10,7 @@
 </head>
 <body>
     <div>
-        <h1>Error <span th:if="${statuscode != null}" th:text="${statuscode}"></span></h1>
+        <h1>Error<span th:if="${statuscode != null}" th:text="': ' + ${statuscode}"></span></h1>
         <a href="/"><button>go back</button></a>
     </div>
 </body>
