@@ -8,6 +8,8 @@
     <title>Artist</title>
 </head>
 <body>
-    <h2 th:text="${artist.name} + ' ' + ${artist.surname} + ' - ' + ${artist.nationality} + ' -  ' + ${artist.dateOfBirth}" ></h2>
+    ARTIIIIIST
+    <h2 th:text="${artist.name} + ' ' + ${artist.surname}   + ' -  ' + ${#temporals.formatISO(artist.birthDate)}" >..</h2>
+    <img th:src="@{${'data:image/jpeg;charset=utf-8;base64,' + profilePic}}" alt="Artist image">
 </body>
 </html>

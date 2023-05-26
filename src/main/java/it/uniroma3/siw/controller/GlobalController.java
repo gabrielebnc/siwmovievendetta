@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -87,5 +89,13 @@ public class GlobalController {
         return "formRegister.html";
     }
 
+    @GetMapping("/artist/{id}")
+    public String artist(@PathVariable("id") Long id, Model model){
+        Artist artist = this.artistRepository.findById(id).get();
+        String profilePic = artist.getProfilePicture().getBase64Image(); //è una string rappresentante l'immagine in base64
+        model.addAttribute("artist", this.artistRepository.findById(id).get());
+        model.addAttribute("profilePic", profilePic);
+        return "artist.html";
+    }
 
 }

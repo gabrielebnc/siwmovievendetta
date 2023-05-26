@@ -21,7 +21,7 @@ public class Artist {
     private LocalDate birthDate;
     private LocalDate deathDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Image profilePicture;
 
     @OneToMany(mappedBy = "director")
