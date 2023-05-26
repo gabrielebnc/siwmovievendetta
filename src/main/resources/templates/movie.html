@@ -2,22 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>SiwMovie - Movie Page</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
+    <nav>
+        <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
+        <h2>Movie</h2>
+        <a th:if="${userDetails}" href="/logout" class="log">LOG OUT</a>
+        <a th:unless="${userDetails}" href="/login" class="log">SIGN IN</a>
+    </nav>
     <div th:if="${movie}">
-        <h1 th:text="${movie.title}">Titolo Film</h1>
+        <h1 th:text="${movie.title}">Film Title</h1>
         <div>
             Anno:<span th:text="'(' + ${movie.year} + ')'">0</span>
         </div>
     </div>
-    <ul>
-        <li th:each="picture : ${pictures}">
-            <img th:src="@{'data:image/*;base64,'+${picture.base64Image}}" width="100">
-        </li>
-    </ul>
+        <img th:if="${image}" th:src="@{'data:image/*;base64,'+${image.base64Image}}" width="100">
     <div th:unless="${movie}">
-        Non Esiste
+        This film does not exists
     </div>
 </body>
 </html>

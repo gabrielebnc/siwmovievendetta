@@ -18,7 +18,7 @@ public class Movie {
     @Max(2023)
     private Integer year;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     Image image;
 
     @ManyToOne

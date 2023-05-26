@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
-
+    <nav>
+        <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
+        <h2>Admin - New Artist</h2>
+        <a th:if="${userDetails}" href="/logout" class="log">LOG OUT</a>
+    </nav>
     <form th:action="@{/admin/artist}" method="post" enctype="multipart/form-data" th:object="${artist}">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>

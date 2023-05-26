@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/index.css">
-    <title>Document</title>
+    <title>SiwMovie - Home Page</title>
 </head>
 <body>
     <nav>
-        <h1>SIWMOVIE</h1>
+        <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
         <h2>Home page</h2>
-        <a th:if="${userDetails}" href="/logout">LOG OUT</a>
-        <a th:unless="${userDetails}" href="/login">SIGN IN</a>
+        <a th:if="${userDetails}" href="/logout" class="log">LOG OUT</a>
+        <a th:unless="${userDetails}" href="/login" class="log">SIGN IN</a>
     </nav>
     <div class="movies">
         <div class="card" th:each="movie : ${movies}">
             <div class="card_content">
-                <img src="/images/cinemabw.jpg" alt="film picture">
+                <img th:src="@{'data:image/*;base64,' + ${movie.image.base64Image}}" alt="film picture">
                 <div class="card-text">
                     <div class="card-p" th:text="${movie.title}">Avatar</div>
                     <div class="card-p" th:text="${movie.year}">2012</div>

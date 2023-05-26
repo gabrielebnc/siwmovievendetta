@@ -5,11 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/base.css">
-    <title>Artist</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <title>SiwMovie - Artist Page</title>
 </head>
 <body>
-    ARTIIIIIST
-    <h2 th:text="${artist.name} + ' ' + ${artist.surname}   + ' -  ' + ${#temporals.formatISO(artist.birthDate)}" >..</h2>
-    <img th:src="@{${'data:image/jpeg;charset=utf-8;base64,' + profilePic}}" alt="Artist image">
+    <nav>
+        <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
+        <h2>Artist</h2>
+        <a th:if="${userDetails}" href="/logout" class="log">LOG OUT</a>
+        <a th:unless="${userDetails}" href="/login" class="log">SIGN IN</a>
+    </nav>
+
+    <!-- todo frontend-->
+    <h2 th:text="${artist.name} + ' ' + ${artist.surname}   + ' -  ' + ${#temporals.format(artist.birthDate, 'dd-MM-yyyy')}" >..</h2>
+    <img th:src="@{'data:image/*;base64,'+${profilePic.base64Image}}" alt="Artist image">
 </body>
 </html>

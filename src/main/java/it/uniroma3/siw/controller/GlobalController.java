@@ -2,6 +2,8 @@ package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 @Controller
 public class GlobalController {
@@ -91,11 +94,40 @@ public class GlobalController {
 
     @GetMapping("/artist/{id}")
     public String artist(@PathVariable("id") Long id, Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = null;
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            userDetails = (UserDetails)authentication.getPrincipal();
+        }
+        model.addAttribute("userDetails", userDetails);
+
+
         Artist artist = this.artistRepository.findById(id).get();
-        String profilePic = artist.getProfilePicture().getBase64Image(); //è una string rappresentante l'immagine in base64
+        Image profilePic = artist.getProfilePicture(); //è una string rappresentante l'immagine in base64
         model.addAttribute("artist", this.artistRepository.findById(id).get());
         model.addAttribute("profilePic", profilePic);
+        
         return "artist.html";
     }
+
+    @GetMapping("/movie/{id}")
+    public String movie(@PathVariable("id") Long id, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = null;
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            userDetails = (UserDetails)authentication.getPrincipal();
+        }
+        model.addAttribute("userDetails", userDetails);
+
+        Movie movie = this.movieRepository.findById(id).get();
+        Image image = movie.getImage();
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("image", image);
+        return "movie.html";
+    }
+    
 
 }

@@ -20,7 +20,7 @@ nav > a{
     transition: 0.3s ease-in-out;
 }
 
-nav > a::before {
+nav > .log::before {
     content: "";
     position: absolute;
     display: block;
@@ -33,6 +33,11 @@ nav > a::before {
     transition: transform 0.3s ease-in-out;
   }
 
-nav > a:hover::before {
+nav > .log:hover::before {
     transform: scaleX(1);
   }
+
+#siw-nav-title{
+    text-decoration: none;
+    text-decoration-line: none;
+}

@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
-    <h1>Aggiungi Film</h1>
+    <nav>
+        <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
+        <h2>Admin - Add Movie</h2>
+        <a href="/logout" class="log">LOG OUT</a>
+    </nav>
     <form th:action="@{/admin/uploadMovie}" method="post" enctype="multipart/form-data" th:object="${movie}">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>

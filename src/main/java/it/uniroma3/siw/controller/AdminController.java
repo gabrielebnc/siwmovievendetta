@@ -51,7 +51,7 @@ public class AdminController {
             this.movieRepository.save(movie);
 
             model.addAttribute("movie",movie);
-            model.addAttribute("pictures",movieImg);
+            model.addAttribute("image",movieImg);
             return "movie.html";
         } else {
             return "/admin/formNewMovie.html";
