@@ -25,7 +25,5 @@ public class ArtistValidator implements Validator {
             && this.artistRepository.existsByNameAndSurnameAndBirthDate(artist.getName(), artist.getSurname(), artist.getBirthDate())){
             errors.reject("artist.duplicate");
         }
-
-
     }
 }

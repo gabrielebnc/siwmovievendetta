@@ -64,7 +64,7 @@ public class AdminController {
         return "/admin/formNewArtist.html";
     }
 
-    @PostMapping("/admin/artists")
+    @PostMapping("/admin/artist")
     public String newArtist(Model model,@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, @RequestParam("file") MultipartFile image) throws  IOException{
         this.artistValidator.validate(artist, bindingResult);
         if(!bindingResult.hasErrors()){
@@ -82,5 +82,6 @@ public class AdminController {
         }
     }
 
-    /*TODO ADD POST NEW ARTIST AND MOVIE-ARTISTS LINKING METHODS*/
+
+    /*TODO MOVIE-ARTISTS LINKING METHODS*/
 }
