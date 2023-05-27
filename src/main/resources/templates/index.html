@@ -16,8 +16,8 @@
         <a th:if="${userDetails}" href="/logout" class="log">LOG OUT</a>
         <a th:unless="${userDetails}" href="/login" class="log">SIGN IN</a>
     </nav>
-    <div class="movies">
-        <div class="card" th:each="movie : ${movies}">
+    <div class="movies" >
+        <a class="card" th:each="movie : ${movies}" th:href="@{'/movie/' + ${movie.id}}" >
             <div class="card_content">
                 <img th:src="@{'data:image/*;base64,' + ${movie.image.base64Image}}" alt="film picture">
                 <div class="card-text">
@@ -25,11 +25,7 @@
                     <div class="card-p" th:text="${movie.year}">2012</div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
-    
-
-        
-
 </body>
 </html>

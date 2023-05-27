@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -74,13 +71,52 @@ public class AdminController {
             this.artistRepository.save(artist);
 
             model.addAttribute("artist", artist);
-            model.addAttribute("artistPic", pic );
+            model.addAttribute("profilePic", pic );
             return "artist.html";
         }
         else {
             return "/admin/formNewArtist.html";
         }
     }
+
+    @GetMapping("/admin/manageMovies")
+    public String manageMovies(Model model){
+        model.addAttribute("movies", this.movieRepository.findAll());
+        return "/admin/manageMovies.html";
+    }
+
+    @GetMapping("/admin/formUpdateMovie/{id}")
+    public String formUpdateMovie(@PathVariable("id") Long id, Model model){
+        model.addAttribute("movie", this.movieRepository.findById(id).get());
+        return "/admin/formUpdateMovie.html";
+    }
+
+    @GetMapping("/admin/addDirector/{id}")
+    public String addDirector(@PathVariable("id") Long id, Model model){
+        model.addAttribute("artists", this.artistRepository.findAll());
+        model.addAttribute("movie", this.movieRepository.findById(id).get());
+        return "/admin/addDirector.html";
+    }
+
+    @GetMapping("/admin/setDirectorToMovie/{artistId}/{movieId}")
+    public String setDirectorToMovie(@PathVariable("artistId") Long artistId, @PathVariable("movieId") Long movieId, Model model){
+        Artist director = this.artistRepository.findById(artistId).get();
+        Movie movie = this.movieRepository.findById(movieId).get();
+        movie.setDirector(director);
+        this.movieRepository.save(movie);
+
+        model.addAttribute("movie", movie);
+        return "/admin/formUpdateMovie.html";
+    }
+
+    @GetMapping("/admin/removeDirectorToMovie/{movieId}")
+    public String removeDirectorToMovie(@PathVariable("movieId") Long movieId, Model model){
+        Movie movie = this.movieRepository.findById(movieId).get();
+        movie.setDirector(null);
+        model.addAttribute("movie", movie);
+        return "/admin/formUpdateMovie.html";
+    }
+
 
 
     /*TODO MOVIE-ARTISTS LINKING METHODS*/

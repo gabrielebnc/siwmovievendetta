@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siw Movie - Set Movie Director</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<h3 th:text="'Movie:' + ${movie.title}"></h3>
+<ul>
+  <li th:each="artist : ${artists}">
+    <a th:text="${artist.name} + ' ' +  ${artist.surname}" th:href="@{'/admin/setDirectorToMovie' + '/' + ${artist.id} + '/' + ${movie.id}}">Mario Rossi</a>
+  </li>
+</ul>
+</body>
+</html>
