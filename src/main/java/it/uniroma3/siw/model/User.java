@@ -19,7 +19,7 @@ public class User {
     @NotBlank
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Image profilePicture;
 
     public Long getId() {

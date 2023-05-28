@@ -25,11 +25,11 @@
     <a th:href="@{'/admin/removeDirectorToMovie/' + ${movie.id}}"><button>REMOVE</button></a>
   </div>
 
-  <div th:if="${movie.actors.isEmpty()}">
+  <div th:if="${movie.actors == NULL or movie.actors.isEmpty()}">
     No actors currently set
     <span><a th:href="@{'/admin/updateActorsOnMovie/' + ${movie.id}}"><button>SET ACTORS</button></a></span>
   </div>
-  <div th:unless="${movie.actors.isEmpty()}">
+  <div th:unless="${movie.actors == NULL or movie.actors.isEmpty()}">
     <h4>Actors: <a th:href="@{'/admin/updateActorsOnMovie/' + ${movie.id}}"><button>EDIT ACTORS</button></a></h4>
     <ul>
       <li th:each="actor : ${movie.actors}" th:text="{actor.name} + ' ' + {actor.surname} + ' (' + ${#temporals.format(artist.birthDate, 'dd-MM-yyyy')} +')'">

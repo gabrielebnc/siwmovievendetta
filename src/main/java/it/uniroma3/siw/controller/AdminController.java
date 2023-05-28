@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -52,7 +51,7 @@ public class AdminController {
             this.movieService.createMovie(movie, image);
 
             model.addAttribute("movie", movie);
-            model.addAttribute("image", image);
+            model.addAttribute("image", movie.getImage());
             return "movie.html";
         } else {
             return "/admin/formNewMovie.html";
@@ -89,6 +88,8 @@ public class AdminController {
         return "/admin/manageMovies.html";
     }
 
+
+    @Transactional
     @GetMapping("/admin/formUpdateMovie/{id}")
     public String formUpdateMovie(@PathVariable("id") Long id, Model model){
         model.addAttribute("movie", this.movieRepository.findById(id).get());
