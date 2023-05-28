@@ -8,6 +8,8 @@ import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.repository.MovieRepository;
+import it.uniroma3.siw.service.MovieService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -31,6 +36,8 @@ public class AdminController {
     private MovieValidator movieValidator;
     @Autowired
     private ArtistValidator artistValidator;
+    @Autowired
+    private MovieService movieService;
     
     @GetMapping("/admin/formNewMovie")
     public String newMovie(Model model){
@@ -42,13 +49,10 @@ public class AdminController {
     public String newMovie(Model model, @Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, @RequestParam("file") MultipartFile image) throws IOException {
         this.movieValidator.validate(movie,bindingResult);
         if(!bindingResult.hasErrors()){
-            Image movieImg = new Image(image.getBytes());
-            this.imageRepository.save(movieImg);
-            movie.setImage(movieImg);
-            this.movieRepository.save(movie);
+            this.movieService.createMovie(movie, image);
 
-            model.addAttribute("movie",movie);
-            model.addAttribute("image",movieImg);
+            model.addAttribute("movie", movie);
+            model.addAttribute("image", image);
             return "movie.html";
         } else {
             return "/admin/formNewMovie.html";
@@ -98,26 +102,74 @@ public class AdminController {
         return "/admin/addDirector.html";
     }
 
+    @Transactional
     @GetMapping("/admin/setDirectorToMovie/{artistId}/{movieId}")
     public String setDirectorToMovie(@PathVariable("artistId") Long artistId, @PathVariable("movieId") Long movieId, Model model){
         Artist director = this.artistRepository.findById(artistId).get();
         Movie movie = this.movieRepository.findById(movieId).get();
         movie.setDirector(director);
+        director.getDirectedMovies().add(movie);
+        this.artistRepository.save(director);
         this.movieRepository.save(movie);
 
         model.addAttribute("movie", movie);
         return "/admin/formUpdateMovie.html";
     }
 
+    @Transactional
     @GetMapping("/admin/removeDirectorToMovie/{movieId}")
     public String removeDirectorToMovie(@PathVariable("movieId") Long movieId, Model model){
         Movie movie = this.movieRepository.findById(movieId).get();
+        Artist director = movie.getDirector();
+        director.getDirectedMovies().remove(movie);
+        this.artistRepository.save(director);
         movie.setDirector(null);
+        this.movieRepository.save(movie);
         model.addAttribute("movie", movie);
         return "/admin/formUpdateMovie.html";
     }
 
+    @Transactional
+    @GetMapping("/admin/updateActorsOnMovie/{id}")
+    public String updateActors(@PathVariable("id") Long id,Model model ){
 
+        List<Artist> actorsToAdd = this.actorsToAdd(id);
+        model.addAttribute("movie", this.movieRepository.findById(id).get());
+        model.addAttribute("actorsToAdd", actorsToAdd);
 
-    /*TODO MOVIE-ARTISTS LINKING METHODS*/
+        return "/admin/actorsToAdd.html";
+    }
+
+    @Transactional
+    @GetMapping("/admin/addActorToMovie/{actorId}/{movieId}")
+    public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model){
+        Movie movie = this.movieRepository.findById(movieId).get();
+        this.movieService.setActorToMovie(movie, actorId);
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("actorsToAdd", actorsToAdd(movieId));
+
+        return "/admin/actorsToAdd.html";
+    }
+
+    @Transactional
+    @GetMapping("/admin/removeActorToMovie/{actorId}/{movieId}")
+    public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model){
+        Movie movie = this.movieRepository.findById(movieId).get();
+
+        this.movieService.removeActorToMovie(movie, actorId);
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("actorsToAdd", actorsToAdd(movieId));
+        
+        return "/admin/actorsToAdd.html";
+    }
+
+    @Transactional
+    public List<Artist> actorsToAdd(Long movieId){
+        List<Artist> actorsToAdd= new ArrayList<>();
+        actorsToAdd = this.artistRepository.getByActedMoviesNotContains(this.movieRepository.findById(movieId).get());
+        return actorsToAdd;
+    }
+    
 }

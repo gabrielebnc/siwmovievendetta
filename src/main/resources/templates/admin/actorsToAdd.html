@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siw Movie - Set Actors</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+    <h1 th:text="'Attori del film ' + ${movie.title}"></h1>
+	<div th:if="${movie.actors.isEmpty()}">No Actors for this film</div>
+	<ul th:unless="${movie.actors.isEmpty()}">
+		<li th:each="actor : ${movie.actors}">
+			<span th:text="${actor.name}+' '+${actor.surname}"></span>
+			<a th:href="@{'/admin/removeActorFromMovie/'+ ${actor.id}+'/'+${movie.id}}">Remove</a>
+		</li>
+	</ul>
+	<div>
+		Actors not acting in this film:
+		<ul>
+			<li th:each="actor : ${actorsToAdd}">
+				<span th:text="${actor.name}+' '+${actor.surname}"></span>
+				<a th:href="@{'/admin/addActorToMovie/'+ ${actor.id}+'/'+${movie.id}}">Add</a>
+			</li>
+		</ul>
+	<div>
+	<div>
+		<a th:href="@{'/admin/formUpdateMovie/'+ ${movie.id}}"><button type="button">Back</button></a>
+	</div>
+</body>
+</html>
