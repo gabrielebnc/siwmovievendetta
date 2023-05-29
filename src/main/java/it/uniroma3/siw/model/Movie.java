@@ -18,13 +18,13 @@ public class Movie {
     @Max(2023)
     private Integer year;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne
     Image image;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Artist director;
 
-    @ManyToMany(mappedBy = "actedMovies")
+    @ManyToMany(mappedBy = "actedMovies", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Artist> actors;
 
     public Long getId() {

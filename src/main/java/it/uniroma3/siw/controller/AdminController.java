@@ -154,7 +154,7 @@ public class AdminController {
     }
 
     @Transactional
-    @GetMapping("/admin/removeActorToMovie/{actorId}/{movieId}")
+    @GetMapping("/admin/removeActorFromMovie/{actorId}/{movieId}")
     public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model){
         Movie movie = this.movieRepository.findById(movieId).get();
 

@@ -32,7 +32,7 @@
   <div th:unless="${movie.actors == NULL or movie.actors.isEmpty()}">
     <h4>Actors: <a th:href="@{'/admin/updateActorsOnMovie/' + ${movie.id}}"><button>EDIT ACTORS</button></a></h4>
     <ul>
-      <li th:each="actor : ${movie.actors}" th:text="{actor.name} + ' ' + {actor.surname} + ' (' + ${#temporals.format(artist.birthDate, 'dd-MM-yyyy')} +')'">
+      <li th:each="actor : ${movie.actors}" th:text="${actor.name} + ' ' + ${actor.surname} + ' (' + ${#temporals.format(actor.birthDate, 'dd-MM-yyyy')} +')'">
         Franco Califano (20-11-3453)
       </li>
     </ul>

@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,10 +25,10 @@ public class Artist {
     @OneToOne(fetch = FetchType.EAGER)
     private Image profilePicture;
 
-    @OneToMany(mappedBy = "director")
+    @OneToMany(mappedBy = "director", fetch = FetchType.EAGER)
     private List<Movie> directedMovies;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Movie> actedMovies;
 
     public Long getId() {
@@ -78,18 +79,22 @@ public class Artist {
         this.profilePicture = profilePicture;
     }
 
+    @Transactional
     public List<Movie> getDirectedMovies() {
         return directedMovies;
     }
 
+    @Transactional
     public void setDirectedMovies(List<Movie> directedMovies) {
         this.directedMovies = directedMovies;
     }
 
+    @Transactional
     public List<Movie> getActedMovies() {
         return actedMovies;
     }
 
+    @Transactional
     public void setActedMovies(List<Movie> actedMovies) {
         this.actedMovies = actedMovies;
     }
