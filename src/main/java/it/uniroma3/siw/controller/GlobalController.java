@@ -8,6 +8,7 @@ import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -32,7 +33,10 @@ public class GlobalController {
     private MovieRepository movieRepository;
 
     @Autowired
-    ArtistRepository artistRepository;
+    private ArtistRepository artistRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -95,13 +99,7 @@ public class GlobalController {
     @GetMapping("/artist/{id}")
     public String artist(@PathVariable("id") Long id, Model model){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = null;
-        if(!(authentication instanceof AnonymousAuthenticationToken)){
-            userDetails = (UserDetails)authentication.getPrincipal();
-        }
-        model.addAttribute("userDetails", userDetails);
-
+        model.addAttribute("userDetails", this.userService.getUserDetails());
 
         Artist artist = this.artistRepository.findById(id).get();
         Image profilePic = artist.getProfilePicture(); //è una string rappresentante l'immagine in base64
@@ -114,12 +112,7 @@ public class GlobalController {
     @GetMapping("/movie/{id}")
     public String movie(@PathVariable("id") Long id, Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = null;
-        if(!(authentication instanceof AnonymousAuthenticationToken)){
-            userDetails = (UserDetails)authentication.getPrincipal();
-        }
-        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("userDetails", this.userService.getUserDetails());
 
         Movie movie = this.movieRepository.findById(id).get();
         Image image = movie.getImage();

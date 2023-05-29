@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
+	<nav>
+        <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
+        <h2>Admin - Add Movie</h2>
+        <a href="/logout" class="log">LOG OUT</a>
+    </nav>
+
+
     <h1 th:text="'Attori del film ' + ${movie.title}"></h1>
 	<div th:if="${movie.actors.isEmpty()}">No Actors for this film</div>
 	<ul th:unless="${movie.actors.isEmpty()}">

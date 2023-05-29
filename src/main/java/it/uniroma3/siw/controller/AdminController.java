@@ -9,6 +9,7 @@ import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.service.MovieService;
+import it.uniroma3.siw.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class AdminController {
     private ArtistValidator artistValidator;
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private UserService userService;
     
     @GetMapping("/admin/formNewMovie")
     public String newMovie(Model model){
@@ -52,6 +55,7 @@ public class AdminController {
 
             model.addAttribute("movie", movie);
             model.addAttribute("image", movie.getImage());
+            model.addAttribute("userDetails", this.userService.getUserDetails());
             return "movie.html";
         } else {
             return "/admin/formNewMovie.html";
@@ -75,6 +79,7 @@ public class AdminController {
 
             model.addAttribute("artist", artist);
             model.addAttribute("profilePic", pic );
+            model.addAttribute("userDetails", this.userService.getUserDetails());
             return "artist.html";
         }
         else {

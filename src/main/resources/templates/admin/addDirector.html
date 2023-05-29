@@ -9,12 +9,17 @@
   <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
+  <nav>
+    <h1><a href="/" id="siw-nav-title">SIWMOVIE</a></h1>
+    <h2>Admin - Add Movie</h2>
+    <a href="/logout" class="log">LOG OUT</a>
+  </nav>
 
-<h3 th:text="'Movie:' + ${movie.title}"></h3>
-<ul>
-  <li th:each="artist : ${artists}">
-    <a th:text="${artist.name} + ' ' +  ${artist.surname}" th:href="@{'/admin/setDirectorToMovie' + '/' + ${artist.id} + '/' + ${movie.id}}">Mario Rossi</a>
-  </li>
-</ul>
+  <h3 th:text="'Movie:' + ${movie.title}"></h3>
+  <ul>
+    <li th:each="artist : ${artists}">
+      <a th:text="${artist.name} + ' ' +  ${artist.surname}" th:href="@{'/admin/setDirectorToMovie' + '/' + ${artist.id} + '/' + ${movie.id}}">Mario Rossi</a>
+    </li>
+  </ul>
 </body>
 </html>

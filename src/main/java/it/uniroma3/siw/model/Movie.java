@@ -21,7 +21,7 @@ public class Movie {
     @OneToOne
     Image image;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Artist director;
 
     @ManyToMany(mappedBy = "actedMovies", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
