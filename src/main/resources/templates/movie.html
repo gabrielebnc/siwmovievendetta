@@ -44,6 +44,24 @@
                 </div>  
             </div>
         </div>
+        <div th:if="${review != null}">
+            <form th:action="@{'/user/review/' + ${movie.id}}" th:object="${movie}" method="post" id="review">
+                <span><input type="text" th:field="${review.title}" placeholder="Review Title"></span>
+                <span><input type="text" th:field="${review.text}" placeholder="Your review text"></span>
+                <span>
+                    <select form="review" th:field="${review.rating}">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="4">5</option>
+                    </select>
+                </span>
+                <div>
+                    <span><button type="submit">Confirm</button></span>
+                </div>
+            </form>
+        </div>
 
     </div>
     

@@ -20,6 +20,8 @@ public class Review {
 
     private String text;
 
+    private String author;
+
     public Long getId() {
         return id;
     }
@@ -50,5 +52,13 @@ public class Review {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setAuthor(String author){
+        this.author = author;
+    }
+
+    public String getAuthor(){
+        return this.author;
     }
 }

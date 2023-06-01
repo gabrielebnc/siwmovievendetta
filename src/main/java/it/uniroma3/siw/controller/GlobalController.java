@@ -4,6 +4,7 @@ import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
@@ -45,7 +46,7 @@ public class GlobalController {
         Credentials credentials = null;
         if(!(authentication instanceof AnonymousAuthenticationToken)){
             userDetails = (UserDetails)authentication.getPrincipal();
-            credentials = credentialsService.getCredentials(userDetails.getUsername());
+            credentials = this.credentialsService.getCredentials(userDetails.getUsername());
         }
         if(credentials != null && credentials.getRole().equals(Credentials.ADMIN_ROLE)) return "admin/indexAdmin.html";
 
@@ -112,15 +113,28 @@ public class GlobalController {
     @GetMapping("/movie/{id}")
     public String movie(@PathVariable("id") Long id, Model model) {
 
-        model.addAttribute("userDetails", this.userService.getUserDetails());
+        UserDetails userDetails = this.userService.getUserDetails();
+
+        model.addAttribute("userDetails", userDetails);
 
         Movie movie = this.movieRepository.findById(id).get();
         Image image = movie.getImage();
 
         model.addAttribute("movie", movie);
         model.addAttribute("image", image);
+        
+        /* Gestione della review */
+        if (userDetails != null){
+            if(this.credentialsService.getCredentials(userDetails.getUsername()) !=null){
+                model.addAttribute("review", new Review());
+            }
+        }
         return "movie.html";
     }
     
+    @PostMapping("/user/review/{movieId}")
+    public String addReview(){
+        return "";
+    }
 
 }

@@ -27,6 +27,9 @@ public class Movie {
     @ManyToMany(mappedBy = "actedMovies", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Artist> actors;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
     public Long getId() {
         return id;
     }
