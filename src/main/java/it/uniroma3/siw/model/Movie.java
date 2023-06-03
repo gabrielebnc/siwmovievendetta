@@ -77,4 +77,14 @@ public class Movie {
     public void setActors(List<Artist> actors) {
         this.actors = actors;
     }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+
 }

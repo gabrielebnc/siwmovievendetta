@@ -29,15 +29,15 @@
                     <div th:if="${movie.director}" id="director">
                         <h4>Director:</h4>
                         <a th:href="@{'/artist/' +${movie.director.id}}">
-                            <div class="img-inner"><img th:if="${movie.director.profilePicture}" th:src="@{'data:image/*;base64,'+${movie.director.profilePicture.base64Image}}" alt="Actor image"></div>
+                            <!-- <div class="img-inner"><img th:if="${movie.director.profilePicture}" th:src="@{'data:image/*;base64,'+${movie.director.profilePicture.base64Image}}" alt="Actor image"></div> -->
                             <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Mario Rossi</span>
                         </a>
                     </div>
 
-                    <div th:if="${!movie.actors.isEmpty()}" id="actors">
+                    <div th:if="${not #lists.isEmpty(movie.actors)}" id="actors">
                         <h4>Actors:</h4>
                         <a th:each="actor : ${movie.actors}" th:href="@{'/artist/' +${actor.id}}">
-                            <div class="img-inner"><img th:if="${actor.profilePicture}" th:src="@{'data:image/*;base64,'+${actor.profilePicture.base64Image}}" alt="Actor image"></div>
+                            <!-- <div class="img-inner"><img th:if="${actor.profilePicture}" th:src="@{'data:image/*;base64,'+${actor.profilePicture.base64Image}}" alt="Actor image"></div>-->
                             <span th:text="${actor.name} + ' ' + ${actor.surname}">Gianluca Ferrero</span>
                         </a>
                     </div>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div th:if="${review != null}">
-            <form th:action="@{'/user/review/' + ${movie.id}}" th:object="${movie}" method="post" id="review">
+            <form th:action="@{'/user/review/' + ${movie.id}}" th:object="${review}" method="post" id="review">
                 <span><input type="text" th:field="${review.title}" placeholder="Review Title"></span>
                 <span><input type="text" th:field="${review.text}" placeholder="Your review text"></span>
                 <span>

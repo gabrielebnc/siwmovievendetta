@@ -1,5 +1,8 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.controller.validator.CredentialsValidator;
+import it.uniroma3.siw.controller.validator.ReviewValidator;
+import it.uniroma3.siw.controller.validator.UserValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Image;
@@ -8,6 +11,7 @@ import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
+import it.uniroma3.siw.repository.ReviewRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
@@ -38,6 +42,17 @@ public class GlobalController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private ReviewValidator reviewValidator;
+
+    @Autowired
+    private UserValidator userValidator;
+    @Autowired
+    private CredentialsValidator credentialsValidator;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -82,15 +97,19 @@ public class GlobalController {
         return "formRegister.html";
     }
 
+
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user,
                                BindingResult userBindingResult, @Valid
                                @ModelAttribute("credentials") Credentials credentials,
                                BindingResult credentialsBindingResult,
                                Model model) {
+        this.userValidator.validate(user,userBindingResult);
+        this.credentialsValidator.validate(credentials, credentialsBindingResult);                        
         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
+            userService.saveUser(user);
             model.addAttribute("user", user);
             return "formLogin.html";
         }
@@ -133,8 +152,42 @@ public class GlobalController {
     }
     
     @PostMapping("/user/review/{movieId}")
-    public String addReview(){
-        return "";
+    public String addReview(Model model, @Valid @ModelAttribute("review") Review review, BindingResult bindingResult, @PathVariable("movieId") Long id){
+        Movie movie = this.movieRepository.findById(id).get();
+        String username = this.userService.getUserDetails().getUsername();
+
+        this.reviewValidator.validate(review, bindingResult);
+
+        if(this.userService.getUserDetails() != null && movie.getReviews().contains(review)){
+            review.setAuthor(username);
+            if(!bindingResult.hasErrors()){
+                this.reviewRepository.save(review);
+                movie.getReviews().add(review);
+            }
+        }
+        this.movieRepository.save(movie);
+        
+        model.addAttribute("movie", movie);
+        model.addAttribute("image", movie.getImage());
+        model.addAttribute("userDetails", this.userService.getUserDetails());
+
+        return "movie.html";
+    }
+
+    @GetMapping("/user/deleteReview/{movieId}/{reviewId}")
+    public String removeReview(Model model, @PathVariable("movieId") Long movieId,@PathVariable("reviewId") Long reviewId){
+        Movie movie = this.movieRepository.findById(movieId).get();
+        Review review = this.reviewRepository.findById(reviewId).get();
+
+        movie.getReviews().remove(review);
+        this.reviewRepository.delete(review);
+        this.movieRepository.save(movie);
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("image", movie.getImage());
+        model.addAttribute("userDetails", this.userService.getUserDetails());
+
+        return "movie.html";
     }
 
 }

@@ -46,10 +46,7 @@ public class UserService {
         if(!(authentication instanceof AnonymousAuthenticationToken)){
             userDetails = (UserDetails)authentication.getPrincipal();
         }
-        
         return userDetails;
     }
 
-
-   
 }

@@ -52,7 +52,6 @@ public class AdminController {
         this.movieValidator.validate(movie,bindingResult);
         if(!bindingResult.hasErrors()){
             this.movieService.createMovie(movie, image);
-
             model.addAttribute("movie", movie);
             model.addAttribute("image", movie.getImage());
             model.addAttribute("userDetails", this.userService.getUserDetails());
