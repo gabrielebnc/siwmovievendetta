@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Set;
 @Entity
 public class Movie {
     @Id
@@ -28,7 +29,7 @@ public class Movie {
     private List<Artist> actors;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
     public Long getId() {
         return id;
@@ -78,11 +79,11 @@ public class Movie {
         this.actors = actors;
     }
 
-    public List<Review> getReviews() {
+    public Set<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
 

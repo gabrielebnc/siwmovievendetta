@@ -1,7 +1,9 @@
 package it.uniroma3.siw.service;
 
 import java.io.IOException;
+import java.util.Set;
 
+import it.uniroma3.siw.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +57,14 @@ public class MovieService {
 
         this.artistRepository.save(actor);
         this.movieRepository.save(movie);
+    }
+
+    public boolean hasReviewFromAuthor(Long movieId, String username){
+        Movie movie = this.movieRepository.findById(movieId).get();
+        Set<Review> reviews = movie.getReviews();
+        for (Review review: reviews) {
+            if(review.getAuthor().equals(username)) return false;
+        }
+        return true;
     }
 }

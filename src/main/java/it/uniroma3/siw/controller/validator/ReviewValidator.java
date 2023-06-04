@@ -19,14 +19,10 @@ public class ReviewValidator implements Validator{
         return Review.class.equals(clazz);
     }
 
-
     @Override
     public void validate(Object target, Errors errors) {
         Review review = (Review) target;
-        if(review.getTitle() != null && review.getText() != null && review.getRating() != null && review.getAuthor() != null
-            && this.reviewRepository.existsByAuthorAndTitleAndRatingAndText(review.getAuthor(),review.getTitle(),review.getRating(),review.getText())){
-            errors.reject("review.duplicate");
-        }
+
     }
       
 }

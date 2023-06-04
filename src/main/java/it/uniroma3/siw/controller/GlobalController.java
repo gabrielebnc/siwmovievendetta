@@ -13,6 +13,7 @@ import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.repository.ReviewRepository;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.MovieService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,14 @@ public class GlobalController {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private ReviewValidator reviewValidator;
+    private UserValidator userValidator;
 
     @Autowired
-    private UserValidator userValidator;
-    @Autowired
     private CredentialsValidator credentialsValidator;
+
+    @Autowired
+    private MovieService movieService;
+
 
     @GetMapping("/")
     public String index(Model model) {
@@ -155,21 +158,23 @@ public class GlobalController {
     public String addReview(Model model, @Valid @ModelAttribute("review") Review review, BindingResult bindingResult, @PathVariable("movieId") Long id){
         Movie movie = this.movieRepository.findById(id).get();
         String username = this.userService.getUserDetails().getUsername();
-
-        this.reviewValidator.validate(review, bindingResult);
-
-        if(this.userService.getUserDetails() != null && movie.getReviews().contains(review)){
-            review.setAuthor(username);
-            if(!bindingResult.hasErrors()){
+        review.setAuthor(username);
+        if(this.userService.getUserDetails() != null && !movie.getReviews().contains(review)){
+            if(!this.movieService.hasReviewFromAuthor(id, username)){
+                System.out.println("############################################################# success");
                 this.reviewRepository.save(review);
                 movie.getReviews().add(review);
             }
+            else{
+                model.addAttribute("reviewError", "Already Reviewed!");
+            }
+
         }
         this.movieRepository.save(movie);
         
         model.addAttribute("movie", movie);
         model.addAttribute("image", movie.getImage());
-        model.addAttribute("userDetails", this.userService.getUserDetails());
+
 
         return "movie.html";
     }
@@ -185,7 +190,6 @@ public class GlobalController {
 
         model.addAttribute("movie", movie);
         model.addAttribute("image", movie.getImage());
-        model.addAttribute("userDetails", this.userService.getUserDetails());
 
         return "movie.html";
     }

@@ -63,6 +63,13 @@
             </form>
         </div>
 
+        <div th:if="${not #lists.isEmpty(movie.reviews)}">
+            <ul th:each = "review : ${movie.reviews}">
+                <li th:text="${review.author + ' ' + review.title + ' ' +  review.text}"></li>
+            </ul>
+            <span th:if="${reviewError}" th:text="${reviewError}"></span>
+        </div>
+
     </div>
     
     <div th:unless="${movie}">
