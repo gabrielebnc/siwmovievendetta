@@ -48,7 +48,7 @@
             <form th:action="@{'/user/review/' + ${movie.id}}" th:object="${review}" method="post" id="review">
                 <span><input type="text" th:field="${review.title}" placeholder="Review Title"></span>
                 <span><input type="text" th:field="${review.text}" placeholder="Your review text"></span>
-                <span>
+                <span>Rating: 
                     <select form="review" th:field="${review.rating}">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -57,14 +57,13 @@
                         <option value="5">5</option>
                     </select>
                 </span>
-                <div>
-                    <span><button type="submit">Confirm</button></span>
-                </div>
+                
+                <span><button type="submit">Confirm</button></span>
+                
             </form>
         </div>
 
         <div th:if="${not #lists.isEmpty(movie.reviews)}">
-            <div th:unless="${admin}">NO ADMIN</div>
             <div th:each = "review : ${movie.reviews}">
                 <div th:text="${review.title + ' ID:' + review.id}">Title</div><span th:if="${admin}"><a th:href="@{'/admin/deleteReview/' + ${movie.id} + '/' + ${review.id}}"><button>Delete</button></a></span>
                 <span th:text="${'Rating: ' + review.rating}">Rating</span>

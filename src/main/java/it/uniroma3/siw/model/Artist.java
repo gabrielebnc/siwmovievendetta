@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Artist {
@@ -26,10 +26,10 @@ public class Artist {
     private Image profilePicture;
 
     @OneToMany(mappedBy = "director", fetch = FetchType.EAGER)
-    private List<Movie> directedMovies;
+    private Set<Movie> directedMovies;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Movie> actedMovies;
+    private Set<Movie> actedMovies;
 
     public Long getId() {
         return id;
@@ -80,22 +80,24 @@ public class Artist {
     }
 
     @Transactional
-    public List<Movie> getDirectedMovies() {
+    public Set<Movie> getDirectedMovies() {
         return directedMovies;
     }
 
     @Transactional
-    public void setDirectedMovies(List<Movie> directedMovies) {
+    public void setDirectedMovies(Set<Movie> directedMovies) {
         this.directedMovies = directedMovies;
     }
 
     @Transactional
-    public List<Movie> getActedMovies() {
+    public Set<Movie> getActedMovies() {
         return actedMovies;
     }
 
     @Transactional
-    public void setActedMovies(List<Movie> actedMovies) {
+    public void setActedMovies(Set<Movie> actedMovies) {
         this.actedMovies = actedMovies;
     }
+
+
 }

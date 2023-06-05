@@ -17,6 +17,8 @@
     margin-right: 3rem;
     aspect-ratio: 3/2;
     max-width: 50%;
+    border-radius: 16px;
+    border: none;
 }
 
 .movie-cast img{
@@ -44,7 +46,69 @@
 }
 
 
-.img-inner{
-    height:100%;
-    aspect-ratio: 3/2;
+
+form{
+    margin-top: 2rem;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--cream);
+    padding: 1rem;
+}
+
+form > *{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 5px;
+}
+
+form input, form select, form option{
+    padding: 15px 14px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 2px 2px 4px var(--jet-black);
+    font-size: 1.13rem;
+    background-color: var(--purple);
+}
+
+form input:focus{
+    outline: 2px solid var(--purple);
+}
+
+form button{
+    padding: 10px 7px;
+    border-radius: 12px;    
+    border: none;
+    background: linear-gradient(150deg, var(--purple), var(--bluenavy));
+    transition: 0.5s ease-in-out;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 15px;
+}
+
+
+form button:hover{
+    box-shadow: 2px 2px 5px var(--jet-black);
+    cursor: pointer;
+    
+}
+
+/* 
+L'AUTOCOMPLETE DEI BROWSER MODIFICA LO STYLING DEGLI INPUT
+questo è un modo per mantenerlo identico
+*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: 2px solid var(--purple);
+    -webkit-text-fill-color: var(--jet-black);
+    -webkit-box-shadow: 0 0 0px 1000px var(--cream) inset;
 }

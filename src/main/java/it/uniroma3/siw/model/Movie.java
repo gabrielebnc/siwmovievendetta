@@ -26,7 +26,7 @@ public class Movie {
     private Artist director;
 
     @ManyToMany(mappedBy = "actedMovies", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Artist> actors;
+    private Set<Artist> actors;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Review> reviews;
@@ -71,11 +71,11 @@ public class Movie {
         this.director = director;
     }
 
-    public List<Artist> getActors() {
+    public Set<Artist> getActors() {
         return actors;
     }
 
-    public void setActors(List<Artist> actors) {
+    public void setActors(Set<Artist> actors) {
         this.actors = actors;
     }
 

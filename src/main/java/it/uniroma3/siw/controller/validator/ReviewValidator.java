@@ -21,7 +21,7 @@ public class ReviewValidator implements Validator{
 
     @Override
     public void validate(Object target, Errors errors) {
-        Review review = (Review) target;
+        /*Review review = (Review) target;*/
 
     }
       
