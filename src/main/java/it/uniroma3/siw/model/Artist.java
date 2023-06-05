@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -99,5 +100,19 @@ public class Artist {
         this.actedMovies = actedMovies;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artist artist = (Artist) o;
+        return Objects.equals(id, artist.id) && Objects.equals(name, artist.name) && Objects.equals(surname, artist.surname) && Objects.equals(birthDate, artist.birthDate) && Objects.equals(deathDate, artist.deathDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, birthDate, deathDate);
+    }
+
+    
 
 }

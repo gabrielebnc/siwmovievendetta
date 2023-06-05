@@ -44,6 +44,7 @@
                 </div>  
             </div>
         </div>
+        <!-- REVIEW FORM (IF REVIEW AVAILABLE <=> IF USER LOGGED) -->
         <div th:if="${review != null}">
             <form th:action="@{'/user/review/' + ${movie.id}}" th:object="${review}" method="post" id="review">
                 <span><input type="text" th:field="${review.title}" placeholder="Review Title"></span>
@@ -62,9 +63,10 @@
                 
             </form>
         </div>
-
+        <!-- REVIEW LIST -->
         <div th:if="${not #lists.isEmpty(movie.reviews)}">
-            <div th:each = "review : ${movie.reviews}">
+            <!-- SINGLE REVIEW-->
+            <div th:each = "review : ${movie.reviews}" class="review">
                 <div th:text="${review.title + ' ID:' + review.id}">Title</div><span th:if="${admin}"><a th:href="@{'/admin/deleteReview/' + ${movie.id} + '/' + ${review.id}}"><button>Delete</button></a></span>
                 <span th:text="${'Rating: ' + review.rating}">Rating</span>
                 <div th:text="${review.text}">Review Text</div>

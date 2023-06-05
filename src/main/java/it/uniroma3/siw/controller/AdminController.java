@@ -21,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -138,7 +140,7 @@ public class AdminController {
     @GetMapping("/admin/updateActorsOnMovie/{id}")
     public String updateActors(@PathVariable("id") Long id,Model model ){
 
-        List<Artist> actorsToAdd = this.actorsToAdd(id);
+        Set<Artist> actorsToAdd = this.actorsToAdd(id);
         model.addAttribute("movie", this.movieRepository.findById(id).get());
         model.addAttribute("actorsToAdd", actorsToAdd);
 
@@ -171,8 +173,8 @@ public class AdminController {
     }
 
     @Transactional
-    public List<Artist> actorsToAdd(Long movieId){
-        List<Artist> actorsToAdd= new ArrayList<>();
+    public Set<Artist> actorsToAdd(Long movieId){
+        Set<Artist> actorsToAdd= new HashSet<Artist>();
         actorsToAdd = this.artistRepository.getByActedMoviesNotContains(this.movieRepository.findById(movieId).get());
         return actorsToAdd;
     }

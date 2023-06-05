@@ -41,18 +41,14 @@
     width: 100%;
 }
 
-#director a > *, #actors a > *{
-    border: 1px dashed red ;
-}
-
-
-
 form{
     margin-top: 2rem;
     border: none;
     border-radius: 25px;
-    background-color: var(--cream);
+    background-color: var(--purple);
     padding: 1rem;
+    box-shadow: 3px 3px 4px var(--jet-black);
+    margin-bottom: 1rem;
 }
 
 form > *{
@@ -60,6 +56,7 @@ form > *{
     justify-content: start;
     align-items: center;
     padding: 5px;
+    color: var(--cream);
 }
 
 form input, form select, form option{
@@ -68,7 +65,7 @@ form input, form select, form option{
     border: none;
     box-shadow: 2px 2px 4px var(--jet-black);
     font-size: 1.13rem;
-    background-color: var(--purple);
+    background-color: var(--cream);
 }
 
 form input:focus{
@@ -76,23 +73,21 @@ form input:focus{
 }
 
 form button{
+    color: var(--jet-black);
     padding: 10px 7px;
     border-radius: 12px;    
     border: none;
-    background: linear-gradient(150deg, var(--purple), var(--bluenavy));
+    background: var(--cream);
     transition: 0.5s ease-in-out;
     margin: 0;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--cream);
     margin-bottom: 15px;
 }
-
 
 form button:hover{
     box-shadow: 2px 2px 5px var(--jet-black);
     cursor: pointer;
-    
 }
 
 /* 
@@ -111,4 +106,10 @@ select:-webkit-autofill:focus {
     border: 2px solid var(--purple);
     -webkit-text-fill-color: var(--jet-black);
     -webkit-box-shadow: 0 0 0px 1000px var(--cream) inset;
+}
+
+.review {
+    border: none;
+    border-radius: 25px;
+    padding: 1rem
 }
