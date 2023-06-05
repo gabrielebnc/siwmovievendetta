@@ -150,6 +150,10 @@ public class GlobalController {
                 model.addAttribute("review", new Review());
             }
         }
+
+        if(userDetails != null && this.credentialsService.getCredentials(userDetails.getUsername()).getRole().equals(Credentials.ADMIN_ROLE)){
+            model.addAttribute("admin", true);
+        }
         return "movie.html";
     }
     
@@ -157,12 +161,10 @@ public class GlobalController {
     public String addReview(Model model, @Valid @ModelAttribute("review") Review review, BindingResult bindingResult, @PathVariable("movieId") Long id){
         Movie movie = this.movieRepository.findById(id).get();
         String username = this.userService.getUserDetails().getUsername();
+        System.out.println(username);
         review.setAuthor(username);
-        System.out.println("@@@@@@@@@@@@@@ PREIF");
         if(this.userService.getUserDetails() != null && !movie.getReviews().contains(review)){
-            System.out.println(this.movieService.hasReviewFromAuthor(id, username));
             if(!this.movieService.hasReviewFromAuthor(id, username)){
-                System.out.println("############################################################# success");
                 this.reviewRepository.save(review);
                 movie.getReviews().add(review);
             }
@@ -176,6 +178,10 @@ public class GlobalController {
         model.addAttribute("movie", movie);
         model.addAttribute("image", movie.getImage());
 
+        if(this.credentialsService.getCredentials(username).getRole().equals(Credentials.ADMIN_ROLE)){
+            model.addAttribute("admin", true);
+        }
+
 
         return "movie.html";
     }
@@ -184,6 +190,7 @@ public class GlobalController {
     public String removeReview(Model model, @PathVariable("movieId") Long movieId,@PathVariable("reviewId") Long reviewId){
         Movie movie = this.movieRepository.findById(movieId).get();
         Review review = this.reviewRepository.findById(reviewId).get();
+        UserDetails userDetails = this.userService.getUserDetails();
 
         movie.getReviews().remove(review);
         this.reviewRepository.delete(review);
@@ -191,6 +198,17 @@ public class GlobalController {
 
         model.addAttribute("movie", movie);
         model.addAttribute("image", movie.getImage());
+
+        if (userDetails != null){
+            if(this.credentialsService.getCredentials(userDetails.getUsername()) !=null ){
+                model.addAttribute("review", new Review());
+            }
+            if(this.movieService.hasReviewFromAuthor(movieId, userDetails.getUsername())){
+                model.addAttribute("reviewError", "You have already reviewed this movie.");
+            }
+            
+        }
+        
 
         return "movie.html";
     }

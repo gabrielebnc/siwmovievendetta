@@ -54,7 +54,7 @@
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="4">5</option>
+                        <option value="5">5</option>
                     </select>
                 </span>
                 <div>
@@ -64,10 +64,15 @@
         </div>
 
         <div th:if="${not #lists.isEmpty(movie.reviews)}">
-            <ul th:each = "review : ${movie.reviews}">
-                <li th:text="${review.author + ': ' + review.title + ' ' +  review.text + ' Rating: ' + review.rating}"></li>
-            </ul>
+            <div th:unless="${admin}">NO ADMIN</div>
+            <div th:each = "review : ${movie.reviews}">
+                <div th:text="${review.title + ' ID:' + review.id}">Title</div><span th:if="${admin}"><a th:href="@{'/admin/deleteReview/' + ${movie.id} + '/' + ${review.id}}"><button>Delete</button></a></span>
+                <span th:text="${'Rating: ' + review.rating}">Rating</span>
+                <div th:text="${review.text}">Review Text</div>
+                <div th:text="${review.author}">Author username</div>
+            </div>
             <span th:if="${reviewError}" th:text="${reviewError}"></span>
+            
         </div>
 
     </div>
