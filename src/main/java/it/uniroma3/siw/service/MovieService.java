@@ -63,8 +63,10 @@ public class MovieService {
         Movie movie = this.movieRepository.findById(movieId).get();
         Set<Review> reviews = movie.getReviews();
         for (Review review: reviews) {
-            if(review.getAuthor().equals(username)) return false;
+            if(review.getAuthor().equals(username)) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }

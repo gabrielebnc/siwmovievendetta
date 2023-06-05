@@ -35,7 +35,7 @@
         </div>
         <div>
             <label>Date of death <span>(Optional)</span>: </label>
-            <span><input required type="date" th:field="${artist.deathDate}"></span>
+            <span><input type="date" th:field="${artist.deathDate}"></span>
             <span th:if="${#fields.hasErrors('deathDate')}" th:errors="*{deathDate}" >...</span>
         </div>
         <div>

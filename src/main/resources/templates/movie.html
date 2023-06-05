@@ -65,7 +65,7 @@
 
         <div th:if="${not #lists.isEmpty(movie.reviews)}">
             <ul th:each = "review : ${movie.reviews}">
-                <li th:text="${review.author + ' ' + review.title + ' ' +  review.text}"></li>
+                <li th:text="${review.author + ': ' + review.title + ' ' +  review.text + ' Rating: ' + review.rating}"></li>
             </ul>
             <span th:if="${reviewError}" th:text="${reviewError}"></span>
         </div>

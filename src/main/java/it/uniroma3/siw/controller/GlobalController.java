@@ -1,7 +1,6 @@
 package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
-import it.uniroma3.siw.controller.validator.ReviewValidator;
 import it.uniroma3.siw.controller.validator.UserValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
@@ -159,7 +158,9 @@ public class GlobalController {
         Movie movie = this.movieRepository.findById(id).get();
         String username = this.userService.getUserDetails().getUsername();
         review.setAuthor(username);
+        System.out.println("@@@@@@@@@@@@@@ PREIF");
         if(this.userService.getUserDetails() != null && !movie.getReviews().contains(review)){
+            System.out.println(this.movieService.hasReviewFromAuthor(id, username));
             if(!this.movieService.hasReviewFromAuthor(id, username)){
                 System.out.println("############################################################# success");
                 this.reviewRepository.save(review);
@@ -179,7 +180,7 @@ public class GlobalController {
         return "movie.html";
     }
 
-    @GetMapping("/user/deleteReview/{movieId}/{reviewId}")
+    @GetMapping("/admin/deleteReview/{movieId}/{reviewId}")
     public String removeReview(Model model, @PathVariable("movieId") Long movieId,@PathVariable("reviewId") Long reviewId){
         Movie movie = this.movieRepository.findById(movieId).get();
         Review review = this.reviewRepository.findById(reviewId).get();
