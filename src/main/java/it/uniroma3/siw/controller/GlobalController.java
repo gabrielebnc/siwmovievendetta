@@ -67,7 +67,7 @@ public class GlobalController {
         }
         if(credentials != null && credentials.getRole().equals(Credentials.ADMIN_ROLE)) return "admin/indexAdmin.html";
 
-        model.addAttribute("userDetails", userDetails);
+        /*model.addAttribute("userDetails", userDetails);*/
         model.addAttribute("movies", this.movieRepository.findAll());
         return "index.html";
     }
@@ -98,6 +98,24 @@ public class GlobalController {
         model.addAttribute("credentials", new Credentials());
         return "formRegister.html";
     }
+
+    /* ridondante, ma viene usata anche per la admin dashboard */
+    @GetMapping("/movies")
+    public String movies(Model model){
+
+        model.addAttribute("movies", this.movieRepository.findAll());
+        return "index.html";
+    }
+
+    @GetMapping("/artists")
+    public String artists(Model model){
+
+        model.addAttribute("artists", this.artistRepository.findAll());
+        return "artists.html";
+    }
+
+
+
 
 
     @PostMapping("/register")
@@ -208,8 +226,6 @@ public class GlobalController {
             }
             
         }
-        
-
         return "movie.html";
     }
 

@@ -7,6 +7,7 @@
     <title>Siw Movie - New Movie</title>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/formNewMovie.css">
 </head>
 <body>
     <nav>
@@ -14,23 +15,25 @@
         <h2>Admin - Add Movie</h2>
         <a href="/logout" class="log">LOG OUT</a>
     </nav>
+
+
     <form th:action="@{/admin/uploadMovie}" method="post" enctype="multipart/form-data" th:object="${movie}">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
         </div>
         <div>
-            <label>Title: </label>
-            <span><input type="text" th:field="${movie.title}"></span>
+            <span><input type="text" placeholder="Movie title" th:field="${movie.title}"></span>
         </div>
         <div>
-            <label>Year: </label>
-            <span><input required type="text" th:field="${movie.year}"></span>
+            <span><input required type="text" placeholder="Movie year" th:field="${movie.year}"></span>
         </div>
 
-        <div>
-            <label>Images:</label>
-            <span><input required type="file" name="file"></span>
+        
+        <div class="image">
+            <p>Movie Image</p> <br>
+            <input required type="file" name="file">
         </div>
+
         <div>
             <span><button type="submit">Confirm</button></span>
         </div>
