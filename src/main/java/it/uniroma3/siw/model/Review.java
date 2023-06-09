@@ -27,7 +27,6 @@ public class Review {
     @NotBlank
     private String text;
 
-    @NotBlank
     private String author;
 
     public Long getId() {

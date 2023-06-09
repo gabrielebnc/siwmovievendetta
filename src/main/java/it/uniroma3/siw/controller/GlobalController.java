@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
+import it.uniroma3.siw.controller.validator.ReviewValidator;
 import it.uniroma3.siw.controller.validator.UserValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
@@ -54,6 +55,9 @@ public class GlobalController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private ReviewValidator reviewValidator;
 
 
     @GetMapping("/")
@@ -177,10 +181,19 @@ public class GlobalController {
     
     @PostMapping("/user/review/{movieId}")
     public String addReview(Model model, @Valid @ModelAttribute("review") Review review, BindingResult bindingResult, @PathVariable("movieId") Long id){
+        this.reviewValidator.validate(review,bindingResult);
         Movie movie = this.movieRepository.findById(id).get();
         String username = this.userService.getUserDetails().getUsername();
-        System.out.println(username);
-        review.setAuthor(username);
+
+        if(!bindingResult.hasErrors() && !this.movieService.hasReviewFromAuthor(id, username)){
+            if(this.userService.getUserDetails() != null && !movie.getReviews().contains(review)){
+                review.setAuthor(username);
+                this.reviewRepository.save(review);
+                movie.getReviews().add(review);
+            }
+        }
+        this.movieRepository.save(movie);
+
         if(this.userService.getUserDetails() != null && !movie.getReviews().contains(review)){
             if(!this.movieService.hasReviewFromAuthor(id, username)){
                 this.reviewRepository.save(review);
