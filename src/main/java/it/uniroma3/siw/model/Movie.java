@@ -1,8 +1,7 @@
 package it.uniroma3.siw.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+
 import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
 @Entity
@@ -14,8 +13,6 @@ public class Movie {
     @NotBlank
     private String title;
 
-    @Min(1900)
-    @Max(2023)
     private Integer year;
 
     @OneToOne

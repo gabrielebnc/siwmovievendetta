@@ -16,6 +16,7 @@
         <a th:if="${userDetails}" href="/logout" class="log">LOG OUT</a>
         <a th:unless="${userDetails}" href="/login" class="log">SIGN IN</a>
     </nav>
+    <div id="artists"><a href="/artists">Artists</a></div>
     <div class="movies" >
         <a class="card" th:each="movie : ${movies}" th:href="@{'/movie/' + ${movie.id}}" >
             <div class="card_content">

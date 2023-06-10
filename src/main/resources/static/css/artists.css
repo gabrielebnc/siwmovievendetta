@@ -46,3 +46,12 @@
     font-size: 1.4rem;
     font-weight: 600;
 }
+
+#movies {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+}

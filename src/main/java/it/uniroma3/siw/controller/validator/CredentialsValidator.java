@@ -23,7 +23,7 @@ public class CredentialsValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Credentials credentials = (Credentials) target;
         if(credentials.getUsername() != null && credentials.getPassword() != null && this.credentialsRepository.existsByUsername(credentials.getUsername())){
-            errors.reject("credentials.duplicate");
+            errors.reject("credentials.username.duplicate");
         }
     }
     

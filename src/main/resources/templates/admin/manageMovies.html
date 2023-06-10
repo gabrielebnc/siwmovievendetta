@@ -7,6 +7,7 @@
     <title>Siw Movie - Manage Movies</title>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/manageMovies.css">
 </head>
 <body>
   <nav>
@@ -18,12 +19,13 @@
   <div th:if="${movies.isEmpty()}">
     No movies currently in the database
   </div>
-  <div th:unless="${movies.isEmpty()}">
-    <ul>
-      <li th:each="movie : ${movies}">
+  <div th:unless="${movies.isEmpty()}" class="movies">
+    <h1>Movies:</h1>
+    <div class="movie-list">
+      <div class="movie" th:each="movie : ${movies}">
         <a th:href="@{'/admin/formUpdateMovie/' + ${movie.id}}" th:text="${movie.title} + ' (' + ${movie.year} + ')'">Avatar (2020)</a>
       </li>
-    </ul>
+    </div>
   </div>
 </body>
 </html>

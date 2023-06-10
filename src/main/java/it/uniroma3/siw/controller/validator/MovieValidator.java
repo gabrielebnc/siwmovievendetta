@@ -2,6 +2,9 @@ package it.uniroma3.siw.controller.validator;
 
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.repository.MovieRepository;
+
+import java.time.Year;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -24,5 +27,7 @@ public class MovieValidator implements Validator {
             && movieRepository.existsByTitleAndYear(movie.getTitle(),movie.getYear())){
             errors.reject("movie.duplicate");
         }
+        if(movie.getYear() > Year.now().getValue()) errors.reject("movie.year.future");
+        if(movie.getYear() < 1900) errors.reject("movie.year.past900");
     }
 }
