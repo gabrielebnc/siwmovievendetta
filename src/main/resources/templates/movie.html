@@ -44,12 +44,17 @@
                 </div>  
             </div>
         </div>
+        <br>
+        <br>
+        <h2>REVIEWS</h2>
         <!-- REVIEW FORM (IF REVIEW AVAILABLE <=> IF USER LOGGED) -->
         <div th:if="${review != null}">
+            
             <form th:action="@{'/user/review/' + ${movie.id}}" th:object="${review}" method="post" id="review">
+                <h3>Post a review for this film!</h3>
                 <span><input type="text" th:field="${review.title}" placeholder="Review Title"></span>
-                <span><input type="text" th:field="${review.text}" placeholder="Your review text"></span>
-                <span>Rating: 
+                <span><input id="form-rev-text" type="text" th:field="${review.text}" placeholder="Your review text"></span>
+                <span id="rating">Rating: 
                     <select form="review" th:field="${review.rating}">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -67,10 +72,9 @@
         <div th:if="${not #lists.isEmpty(movie.reviews)}">
             <!-- SINGLE REVIEW-->
             <div th:each = "review : ${movie.reviews}" class="review">
-                <div th:text="${review.title + ' ID:' + review.id}">Title</div><span th:if="${admin}"><a th:href="@{'/admin/deleteReview/' + ${movie.id} + '/' + ${review.id}}"><button>Delete</button></a></span>
-                <span th:text="${'Rating: ' + review.rating}">Rating</span>
-                <div th:text="${review.text}">Review Text</div>
-                <div th:text="${review.author}">Author username</div>
+                <div class="review-title-line"><h2 th:text="${review.title}">Title </h2><span th:if="${admin}"><a th:href="@{'/admin/deleteReview/' + ${movie.id} + '/' + ${review.id}}"><button>DELETE</button></a></span></div>
+                <div class="review-text" th:text="${review.text}">Review Text</div>
+                <div class="review-author-rating"><div th:text="'-' + ${review.author}">Author username</div><span class="review-rating" th:text="${'Rating: ' + review.rating}">Rating: 5</span></div>
             </div>
             <span th:if="${reviewError}" th:text="${reviewError}"></span>
             
