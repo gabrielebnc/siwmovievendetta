@@ -118,10 +118,6 @@ public class GlobalController {
         return "artists.html";
     }
 
-
-
-
-
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user,
                                BindingResult userBindingResult, @Valid
