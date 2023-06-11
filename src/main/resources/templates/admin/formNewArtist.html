@@ -7,6 +7,7 @@
     <title>Siw Movie - New Artist</title>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/formNewArtist.css">
 </head>
 <body>
     <nav>
@@ -20,12 +21,12 @@
         </div>
         <div>
             <label>Name: </label>
-            <span><input type="text" th:field="${artist.name}"></span>
+            <span><input type="text" th:field="${artist.name}" placeholder="Name"></span>
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >...</span>
         </div>
         <div>
             <label>Surname: </label>
-            <span><input required type="text" th:field="${artist.surname}"></span>
+            <span><input required type="text" th:field="${artist.surname}" placeholder="Surname"></span>
             <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" >...</span>
         </div>
         <div>

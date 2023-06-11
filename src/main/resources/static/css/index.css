@@ -10,12 +10,12 @@
 
 /* CARDS */
 .card {
-    margin: 1rem;
-    width: 23.3%;
+    margin: 1%;
+    width: 18%;
     height: auto;
-    aspect-ratio: 3/2;
-    border-radius: 20px;
-    padding: 5px;
+    aspect-ratio: 3/4;
+    border-radius: 16px;
+    padding: 9px;
     box-shadow: rgba(84, 58, 115, 0.2) 0 15px 30px -5px;
     background-image: linear-gradient(144deg,var(--purple), var(--bluenavy));
     z-index: 1;
@@ -27,8 +27,8 @@
   
 .card_content{
     border-radius: 15px;
-    width: 98%;
-    height: 93%;
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .card-p{
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 600;
 }
 

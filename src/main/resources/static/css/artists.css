@@ -1,9 +1,17 @@
-/* CARDS */
+.artists{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
 .card {
     margin: 1rem;
     width: 15%;
     height: auto;
-    aspect-ratio: 3/4;
+    aspect-ratio: 6/7;
     border-radius: 20px;
     padding: 5px;
     box-shadow: rgba(84, 58, 115, 0.2) 0 15px 30px -5px;
@@ -12,6 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.3s ease-in-out;
 }
   
 .card_content{
@@ -29,7 +38,7 @@
     display: inline;
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 15px;
 }
 
@@ -45,6 +54,10 @@
 .card-p{
     font-size: 1.4rem;
     font-weight: 600;
+}
+
+.card:hover{
+    box-shadow: 2px 2px 3px var(--bluenavy)
 }
 
 #movies {

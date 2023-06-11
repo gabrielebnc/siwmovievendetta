@@ -7,6 +7,7 @@ body{
 }
 
 form{
+    font-size: 1.1rem;
     width: 90%;
     border-radius: 25px;
     border: 1px solid var(--purple);
@@ -27,13 +28,14 @@ p{
 
 input{
     width: 100%;
-    padding: 15px 14px;
+    padding: 11px 9px;
     margin: 0 15px;
     border-radius: 12px;
     border: none;
     box-shadow: 2px 2px 4px var(--jet-black);
     font-size: 1.13rem;
     background-color: var(--cream);
+    margin-bottom: 1rem;
 }
 
 button{
@@ -56,13 +58,14 @@ button:hover{
     
 }
 
+
 .image{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .image input{
-    width: 80%;
+    width: 100%;
 }

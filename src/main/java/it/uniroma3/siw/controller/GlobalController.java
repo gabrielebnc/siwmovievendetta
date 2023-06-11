@@ -157,12 +157,11 @@ public class GlobalController {
     public String movie(@PathVariable("id") Long id, Model model) {
 
         UserDetails userDetails = this.userService.getUserDetails();
-
         model.addAttribute("userDetails", userDetails);
 
         Movie movie = this.movieRepository.findById(id).get();
         Image image = movie.getImage();
-
+        
         model.addAttribute("movie", movie);
         model.addAttribute("image", image);
         
@@ -212,8 +211,6 @@ public class GlobalController {
         if(this.credentialsService.getCredentials(username).getRole().equals(Credentials.ADMIN_ROLE)){
             model.addAttribute("admin", true);
         }
-
-
         return "movie.html";
     }
 

@@ -22,15 +22,17 @@
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
         </div>
         <div>
+            <label>Movie's title:</label>
             <span><input type="text" placeholder="Movie title" th:field="${movie.title}"></span>
         </div>
         <div>
+            <label>Movie's year:</label>
             <span><input required type="text" placeholder="Movie year" th:field="${movie.year}"></span>
         </div>
 
         
         <div class="image">
-            <p>Movie Image</p> <br>
+            <label>Movie Image:</label>
             <input required type="file" name="file">
         </div>
 

@@ -1,14 +1,12 @@
 body{
     height: 100vh;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center;    
     align-items: center;
 }
 
-.container > *{
-    margin-bottom: 2rem
-}
 
 .container{
     padding: 2rem;
@@ -16,17 +14,24 @@ body{
     border: 1px solid var(--jet-black);
 }
 
+.container  *{
+    margin: .7rem 0 1rem 0
+}
+
+.container > div{
+    font-size: 1.1rem;
+}
+
 button{
-    padding: 7px;
+    font-size: 1.2rem;
+    padding: 11px;
     border-radius: 8px;    
     border: none;
     background: linear-gradient(150deg, var(--purple), var(--bluenavy));
     transition: 0.5s ease-in-out;
-    margin: 0;
     font-weight: 600;
     color: var(--cream);
-    margin-bottom: 15px;
-    margin-left: 15px;
+    margin-top: 1rem;
 }
 
 button:hover{
